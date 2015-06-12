@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>YouTube</title>
+</head>
+
+<body>
+
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
+         <script>
+        function onGoogleLoad() {
+            gapi.client.setApiKey('AIzaSyAtJxwdZT7JqX66g14CLWXJD4ckWXaoWfo');
+            gapi.client.load('youtube', 'v3', function() {
+
+                var request = gapi.client.youtube.playlistItems.list({
+                    part: 'snippet',
+                    playlistId: 'PL1CbxROoA2JhEPbNB8pYkpChNelMkjVve',
+                    maxResults: 50
+                });
+
+                request.execute(function(response) {
+                    var a="";
+                    for (var i = 0; i < response.items.length; i++) {
+                       
+                        b=response.items[i].snippet.title + " published at " + response.items[i].snippet.publishedAt+"</br>";
+                        a=a+"<span>"+b+"</span>";
+                    }
+                    $("#content").html(a);
+                });
+            });
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+<div id="content"></div>
+</body>
+
+</html>
